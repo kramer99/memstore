@@ -53,6 +53,8 @@ public class Memstore
 				serialized = true;
 			} catch (ClassNotFoundException e) {
 				throw new RuntimeException(e);	// will never happen
+			} finally {
+				in.close();
 			}
 		} else {
 			journalStream = new ObjectOutputStream(new FileOutputStream(journalFile));
@@ -117,6 +119,8 @@ public class Memstore
 			data = (ConcurrentHashMap<String,Object>)in.readObject();
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException(e);	// will never happen
+		} finally {
+			in.close();
 		}
 	}
 	
